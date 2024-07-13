@@ -10,9 +10,9 @@ public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
 
 
-    public static AtomicInteger lenghtThreeCharacters = new AtomicInteger(0);
-    public static AtomicInteger lenghtFourCharacters = new AtomicInteger(0);
-    public static AtomicInteger lenghtFiveCharacters = new AtomicInteger(0);
+    public static AtomicInteger lengthThreeCharacters = new AtomicInteger(0);
+    public static AtomicInteger lengthFourCharacters = new AtomicInteger(0);
+    public static AtomicInteger lengthFiveCharacters = new AtomicInteger(0);
 
     public static void main(String[] args) {
 
@@ -24,9 +24,9 @@ public class Main {
 
         }
 
-        Thread thread1 = new Thread(() -> checkBeautifulWords(texts, 3));
-        Thread thread2 = new Thread(() -> checkBeautifulWords(texts, 4));
-        Thread thread3 = new Thread(() -> checkBeautifulWords(texts, 5));
+        Thread thread1 = new Thread(() -> checkBeautifulWordsLengthThree(texts));
+        Thread thread2 = new Thread(() -> checkBeautifulWordsLengthFour(texts));
+        Thread thread3 = new Thread(() -> checkBeautifulWordsLengthFive(texts));
         thread1.start();
         thread2.start();
         thread3.start();
@@ -38,9 +38,9 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Красивых слов с длиной" + ANSI_YELLOW + " три" + ANSI_RESET + ": " + lenghtThreeCharacters.get() + " шт.");
-        System.out.println("Красивых слов с длиной" + ANSI_GREEN + " четыре" + ANSI_RESET + ": " + lenghtFourCharacters.get() + " шт.");
-        System.out.println("Красивых слов с длиной" + ANSI_PURPLE + " пять" + ANSI_RESET + ": " + lenghtFiveCharacters.get() + " шт.");
+        System.out.println("Красивых слов с длиной" + ANSI_YELLOW + " три" + ANSI_RESET + ": " + lengthThreeCharacters.get() + " шт.");
+        System.out.println("Красивых слов с длиной" + ANSI_GREEN + " четыре" + ANSI_RESET + ": " + lengthFourCharacters.get() + " шт.");
+        System.out.println("Красивых слов с длиной" + ANSI_PURPLE + " пять" + ANSI_RESET + ": " + lengthFiveCharacters.get() + " шт.");
 
 
     }
@@ -54,19 +54,43 @@ public class Main {
         return text.toString();
     }
 
-    public static void checkBeautifulWords(String[] texts, int lenght) {
+//    public static void checkBeautifulWords(String[] texts, int lenght) {
+//        for (String text : texts) {
+//            if (isBeautifulWord(text, lenght)) {
+//                switch (lenght) {
+//                    case 3:
+//                        lenghtThreeCharacters.incrementAndGet();
+//                        break;
+//                    case 4:
+//                        lenghtFourCharacters.incrementAndGet();
+//                    case 5:
+//                        lenghtFiveCharacters.incrementAndGet();
+//                        break;
+//                }
+//            }
+//        }
+//    }
+
+    public static void checkBeautifulWordsLengthThree(String[] texts) {
         for (String text : texts) {
-            if (isBeautifulWord(text, lenght)) {
-                switch (lenght) {
-                    case 3:
-                        lenghtThreeCharacters.incrementAndGet();
-                        break;
-                    case 4:
-                        lenghtFourCharacters.incrementAndGet();
-                    case 5:
-                        lenghtFiveCharacters.incrementAndGet();
-                        break;
-                }
+            if (isBeautifulWord(text, 3)) {
+                lengthThreeCharacters.incrementAndGet();
+            }
+        }
+    }
+
+    public static void checkBeautifulWordsLengthFour(String[] texts) {
+        for (String text : texts) {
+            if (isBeautifulWord(text, 4)) {
+                lengthFourCharacters.incrementAndGet();
+            }
+        }
+    }
+
+    public static void checkBeautifulWordsLengthFive(String[] texts) {
+        for (String text : texts) {
+            if (isBeautifulWord(text, 5)) {
+                lengthFiveCharacters.incrementAndGet();
             }
         }
     }
